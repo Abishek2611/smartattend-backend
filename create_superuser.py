@@ -29,10 +29,9 @@ print("Departments created!")
 
 # Leave Types create
 leave_types = [
-    {'name': 'Casual Leave', 'max_days': 12},
-    {'name': 'Sick Leave', 'max_days': 15},
-    {'name': 'Annual Leave', 'max_days': 21},
+    {'name': 'Casual Leave', 'max_days_per_year': 12},
+    {'name': 'Sick Leave', 'max_days_per_year': 15},
+    {'name': 'Annual Leave', 'max_days_per_year': 21},
 ]
 for lt in leave_types:
-    LeaveType.objects.get_or_create(name=lt['name'], defaults={'max_days': lt['max_days']})
-print("Leave types created!")
+    LeaveType.objects.get_or_create(name=lt['name'], defaults={'max_days_per_year': lt['max_days_per_year']})
