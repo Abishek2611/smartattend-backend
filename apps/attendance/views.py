@@ -199,6 +199,17 @@ class DashboardSummaryView(APIView):
                 'present': dept_present,
             })
 
+        from apps.leaves.models import LeaveRequest
+        pending_leaves = LeaveRequest.objects.filter(status='pending').select_related('employee', 'leave_type')[:5]
+        pending_leaves_data = [
+            {
+                'id': l.id,
+                'employee_name': l.employee.get_full_name(),
+                'leave_type': l.leave_type.name,
+            }
+            for l in pending_leaves
+        ]
+
         return Response({
             'total_employees': total_employees,
             'present_today': present_today,
@@ -207,4 +218,5 @@ class DashboardSummaryView(APIView):
             'attendance_percentage': round((present_today / total_employees * 100) if total_employees else 0, 1),
             'weekly_trend': trend,
             'department_summary': dept_data,
+            'pending_leaves': pending_leaves_data,
         })

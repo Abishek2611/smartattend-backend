@@ -24,7 +24,7 @@ class AttendanceSerializer(serializers.ModelSerializer):
 class CheckInSerializer(serializers.Serializer):
     latitude = serializers.FloatField(required=True)
     longitude = serializers.FloatField(required=True)
-    selfie = serializers.ImageField(required=True)
+    selfie = serializers.ImageField(required=False, allow_null=True)
 
     def validate_latitude(self, value):
         if not (-90 <= value <= 90):
