@@ -117,7 +117,9 @@ class TodayAttendanceView(APIView):
         today = timezone.localdate()
         try:
             attendance = Attendance.objects.get(employee=request.user, date=today)
-            return Response(AttendanceSerializer(attendance).data)
+            data = AttendanceSerializer(attendance).data
+            data['is_checked_in'] = True
+            return Response(data)
         except Attendance.DoesNotExist:
             return Response(None)
 
