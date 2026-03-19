@@ -58,7 +58,7 @@ class CheckInView(APIView):
             check_in_time=timezone.now(),
             check_in_latitude=lat,
             check_in_longitude=lon,
-            check_in_selfie=serializer.validated_data['selfie'],
+            check_in_selfie=serializer.validated_data.get('selfie', None),
             check_in_distance=gps_result['distance'],
             status='present'
         )
